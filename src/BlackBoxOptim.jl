@@ -183,4 +183,20 @@ end
 # GUIs and front-ends (to really use it, one needs HTTP to enable BlackBoxOptimRealtimePlotServerExt)
 include("gui/realtime_plot.jl")
 
+using PrecompileTools: @compile_workload, @setup_workload
+
+@setup_workload begin
+    precompile_objective(x) = sum(abs2, x)
+    @compile_workload begin
+        controller = bbsetup(
+            precompile_objective;
+            SearchRange = [(-1.0, 1.0), (-1.0, 1.0)],
+            Method = :random_search,
+            PopulationSize = 8,
+            TraceMode = :silent,
+        )
+        bboptimize(controller; MaxSteps = 1)
+    end
+end
+
 end # module BlackBoxOptim
