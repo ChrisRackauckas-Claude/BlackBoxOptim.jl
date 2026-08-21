@@ -45,6 +45,7 @@ function core_body()
     @safetestset "Tracing" include("test_tracing.jl")
     @safetestset "Top-level bboptimize" include("test_toplevel_bboptimize.jl")
     @safetestset "Smoketest bboptimize" include("test_smoketest_bboptimize.jl")
+    @safetestset "Precompile workload API" include("test_precompile_workload.jl")
 
     @safetestset "Set candidate" include("test_set_candidate.jl")
     @safetestset "Max func evals" include("test_max_func_evals.jl")
